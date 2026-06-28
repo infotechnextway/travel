@@ -1,0 +1,21 @@
+name: CI Vendor Dashboard
+on:
+  push:
+    branches: [main, develop]
+    paths: ['apps/vendor-dashboard/**', 'packages/**', '.github/workflows/ci-vendor.yml']
+  pull_request:
+    branches: [main]
+    paths: ['apps/vendor-dashboard/**', 'packages/**', '.github/workflows/ci-vendor.yml']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint --workspace=vendor-dashboard
+      - run: npm run typecheck --workspace=vendor-dashboard
+      - run: npm run build --workspace=vendor-dashboard

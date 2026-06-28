@@ -1,0 +1,55 @@
+name: india_travel_marketplace
+description: India Travel Marketplace Flutter App
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  http: ^1.1.0
+  provider: ^6.0.5
+  shared_preferences: ^2.2.2
+  flutter_bloc: ^8.1.3
+  equatable: ^2.0.5
+  dio: ^5.3.3
+  go_router: ^12.1.1
+  lottie: ^2.7.0
+  google_maps_flutter: ^2.5.0
+  flutter_rating_bar: ^4.0.1
+  cached_network_image: ^3.3.0
+  shimmer: ^3.0.0
+  intl: ^0.18.1
+  image_picker: ^1.0.4
+  url_launcher: ^6.2.1
+  flutter_staggered_grid_view: ^0.7.0
+  carousel_slider: ^4.2.1
+  smooth_page_indicator: ^1.1.0
+  flutter_animate: ^4.3.0
+  rive: ^0.12.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/animations/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: fonts/Inter-Regular.ttf
+        - asset: fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Inter-Bold.ttf
+          weight: 700
+    - family: PlayfairDisplay
+      fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf
+        - asset: fonts/PlayfairDisplay-Bold.ttf
+          weight: 700

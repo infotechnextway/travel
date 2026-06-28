@@ -1,0 +1,18 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+COPY apps/vendor-dashboard/package*.json ./apps/vendor-dashboard/
+COPY packages/shared-types ./packages/shared-types
+RUN npm ci
+COPY apps/vendor-dashboard ./apps/vendor-dashboard
+RUN npm run build --workspace=vendor-dashboard
+
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/apps/vendor-dashboard/.next ./.next
+COPY --from=builder /app/apps/vendor-dashboard/package*.json ./
+COPY --from=builder /app/apps/vendor-dashboard/public ./public
+RUN npm ci --omit=dev
+EXPOSE 3002
+CMD ["npm", "start"]

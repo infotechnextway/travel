@@ -1,0 +1,131 @@
+{
+  "listings_search": {
+    "mappings": {
+      "dynamic": false,
+      "fields": {
+        "title": {
+          "type": "string",
+          "analyzer": "standard",
+          "foldDiacritics": true,
+          "tokenization": "standard",
+          "maxGrams": 15,
+          "minGrams": 2
+        },
+        "description": {
+          "type": "string",
+          "analyzer": "standard",
+          "foldDiacritics": true
+        },
+        "tags": {
+          "type": "string",
+          "analyzer": "standard"
+        },
+        "shortDescription": {
+          "type": "string",
+          "analyzer": "standard"
+        },
+        "listingType": {
+          "type": "string",
+          "facet": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "number",
+          "facet": {
+            "type": "number",
+            "ranges": [
+              { "to": 2, "label": "Below 2" },
+              { "from": 2, "to": 3, "label": "2 to 3" },
+              { "from": 3, "to": 4, "label": "3 to 4" },
+              { "from": 4, "to": 5, "label": "4 to 5" }
+            ]
+          }
+        },
+        "pricing.basePrice": {
+          "type": "number",
+          "facet": {
+            "type": "number",
+            "ranges": [
+              { "to": 5000, "label": "Under ₹5,000" },
+              { "from": 5000, "to": 15000, "label": "₹5,000 - ₹15,000" },
+              { "from": 15000, "to": 50000, "label": "₹15,000 - ₹50,000" },
+              { "from": 50000, "label": "Above ₹50,000" }
+            ]
+          }
+        },
+        "amenities": {
+          "type": "string",
+          "facet": {
+            "type": "string"
+          }
+        },
+        "destinationId": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "geo"
+        },
+        "durationDays": {
+          "type": "number"
+        },
+        "difficulty": {
+          "type": "string",
+          "facet": {
+            "type": "string"
+          }
+        },
+        "isVerified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "analyzers": [
+      {
+        "name": "custom_autocomplete",
+        "tokenizer": {
+          "type": "edgeGram",
+          "minGram": 2,
+          "maxGram": 10
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          }
+        ]
+      }
+    ]
+  },
+  "destinations_search": {
+    "mappings": {
+      "dynamic": false,
+      "fields": {
+        "name": {
+          "type": "string",
+          "analyzer": "standard",
+          "foldDiacritics": true
+        },
+        "description": {
+          "type": "string",
+          "analyzer": "standard"
+        },
+        "tags": {
+          "type": "string",
+          "analyzer": "standard"
+        },
+        "type": {
+          "type": "string",
+          "facet": {
+            "type": "string"
+          }
+        },
+        "coordinates": {
+          "type": "geo"
+        }
+      }
+    }
+  }
+}

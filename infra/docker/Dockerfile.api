@@ -1,0 +1,20 @@
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+COPY services/api/package*.json ./services/api/
+COPY packages/shared-types ./packages/shared-types
+RUN npm ci
+COPY services/api ./services/api
+RUN npm run build --workspace=api
+
+# Production stage
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/services/api/dist ./dist
+COPY --from=builder /app/services/api/package*.json ./
+COPY --from=builder /app/packages/shared-types ./packages/shared-types
+RUN npm ci --omit=dev
+EXPOSE 4000
+CMD ["node", "dist/server.js"]

@@ -1,0 +1,18 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+COPY apps/admin/package*.json ./apps/admin/
+COPY packages/shared-types ./packages/shared-types
+RUN npm ci
+COPY apps/admin ./apps/admin
+RUN npm run build --workspace=admin
+
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/apps/admin/.next ./.next
+COPY --from=builder /app/apps/admin/package*.json ./
+COPY --from=builder /app/apps/admin/public ./public
+RUN npm ci --omit=dev
+EXPOSE 3001
+CMD ["npm", "start"]

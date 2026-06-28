@@ -1,0 +1,21 @@
+name: CI Admin
+on:
+  push:
+    branches: [main, develop]
+    paths: ['apps/admin/**', 'packages/**', '.github/workflows/ci-admin.yml']
+  pull_request:
+    branches: [main]
+    paths: ['apps/admin/**', 'packages/**', '.github/workflows/ci-admin.yml']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint --workspace=admin
+      - run: npm run typecheck --workspace=admin
+      - run: npm run build --workspace=admin

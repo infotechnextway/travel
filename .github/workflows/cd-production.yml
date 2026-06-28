@@ -1,0 +1,22 @@
+name: CD Production
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Build Docker images
+        run: |
+          docker build -f infra/docker/Dockerfile.api -t api:production .
+          docker build -f infra/docker/Dockerfile.web -t web:production .
+          docker build -f infra/docker/Dockerfile.admin -t admin:production .
+          docker build -f infra/docker/Dockerfile.vendor -t vendor:production .
+      - name: Deploy to Production
+        run: echo "Production deployment triggered"
