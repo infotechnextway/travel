@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "node -e \"require('child_process').spawnSync('npx',['-y','-p','typescript@5.5.4','tsc','--noEmitOnError','false'],{stdio:'inherit',shell:true})\"",
+    "build": "node -e \"require('child_process').spawnSync('npx',['-y','-p','typescript@5.5.4','tsc','--noEmitOnError','false'],{stdio:'inherit',shell:true})\" && npx tsc-alias",
     "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit",
@@ -69,6 +69,7 @@
     "jest": "^29.0.0",
     "supertest": "^6.3.0",
     "ts-jest": "^29.0.0",
+    "tsc-alias": "^1.8.17",
     "tsx": "^4.7.0",
     "typescript": "~5.5.4"
   }
