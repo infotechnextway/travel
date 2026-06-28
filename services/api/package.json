@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "node node_modules/typescript/bin/tsc --noEmitOnError false",
+    "build": "npx -y -p typescript@5.5.4 tsc --noEmitOnError false",
     "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit",
