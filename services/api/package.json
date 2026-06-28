@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "npx -y -p typescript@5.5.4 tsc --noEmitOnError false",
+    "build": "node -e \"require('child_process').spawnSync('npx',['-y','-p','typescript@5.5.4','tsc','--noEmitOnError','false'],{stdio:'inherit',shell:true})\"",
     "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit",
