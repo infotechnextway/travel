@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   Store, LayoutDashboard, Package, Calendar, CreditCard,
@@ -20,45 +18,13 @@ const navItems = [
 ];
 
 const stats = [
-  { label: 'Total Bookings', value: '—', icon: Package, color: 'text-saffron' },
-  { label: 'Revenue', value: '—', icon: DollarSign, color: 'text-emerald' },
-  { label: 'Avg Rating', value: '—', icon: Star, color: 'text-sand' },
-  { label: 'Active Listings', value: '—', icon: Package, color: 'text-cloud' },
+  { label: 'Total Bookings', value: '86', icon: Package, color: 'text-saffron' },
+  { label: 'Revenue', value: '₹2.8L', icon: DollarSign, color: 'text-emerald' },
+  { label: 'Avg Rating', value: '4.8', icon: Star, color: 'text-sand' },
+  { label: 'Active Listings', value: '12', icon: Package, color: 'text-cloud' },
 ];
 
 export default function VendorDashboard() {
-  const router = useRouter();
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('vendor_token');
-    const userData = localStorage.getItem('vendor_user');
-    if (!token) {
-      router.push('/vendor/login');
-      return;
-    }
-    try {
-      setUser(JSON.parse(userData || '{}'));
-    } catch {
-      setUser(null);
-    }
-  }, [router]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('vendor_token');
-    localStorage.removeItem('vendor_refresh');
-    localStorage.removeItem('vendor_user');
-    router.push('/vendor/login');
-  };
-
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-midnight">
-        <div className="text-cloud/50">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-midnight flex">
       {/* Sidebar */}
@@ -88,24 +54,29 @@ export default function VendorDashboard() {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-white/10">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-rose/70 hover:text-rose hover:bg-rose/5 transition text-sm"
+        <div className="p-3 border-t border-white/10 space-y-1">
+          <Link
+            href="/"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-cloud/60 hover:text-cloud hover:bg-white/5 transition text-sm"
           >
             <LogOut className="w-4 h-4" />
-            Sign Out
-          </button>
+            Back to Home
+          </Link>
         </div>
       </aside>
 
       {/* Main Content */}
       <div className="flex-1">
-        <header className="border-b border-white/10 px-8 py-4">
-          <h1 className="text-xl font-semibold text-cloud">Dashboard</h1>
-          <p className="text-sm text-cloud/50 mt-0.5">
-            Welcome back, {user.name || user.email || 'Vendor'}
-          </p>
+        <header className="border-b border-white/10 px-8 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-semibold text-cloud">Dashboard</h1>
+            <p className="text-sm text-cloud/50 mt-0.5">
+              Welcome back, Demo Vendor
+            </p>
+          </div>
+          <div className="px-3 py-1 rounded-full bg-saffron/10 text-saffron text-xs border border-saffron/20">
+            Demo Mode
+          </div>
         </header>
 
         <main className="p-8">
@@ -124,23 +95,23 @@ export default function VendorDashboard() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <Link href="/vendor/listings" className="glass p-6 hover:border-saffron/30 transition group">
+            <div className="glass p-6 hover:border-saffron/30 transition group cursor-pointer">
               <h3 className="text-cloud font-semibold group-hover:text-saffron transition">Create New Listing</h3>
               <p className="text-cloud/50 text-sm mt-1">Add a tour, hotel, activity, or transport listing</p>
-            </Link>
-            <Link href="/vendor/bookings" className="glass p-6 hover:border-saffron/30 transition group">
+            </div>
+            <div className="glass p-6 hover:border-saffron/30 transition group cursor-pointer">
               <h3 className="text-cloud font-semibold group-hover:text-saffron transition">Manage Bookings</h3>
               <p className="text-cloud/50 text-sm mt-1">View and manage incoming customer bookings</p>
-            </Link>
+            </div>
           </div>
 
           {/* Placeholder */}
           <div className="glass p-8 text-center">
             <p className="text-cloud/50">
-              Dashboard content will appear here as modules are built.
+              Vendor dashboard content will appear here as modules are built.
             </p>
             <p className="text-cloud/30 text-sm mt-2">
-              Connect your API to see live data.
+              This is a frontend demo — no backend connection required.
             </p>
           </div>
         </main>

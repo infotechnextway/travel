@@ -11,18 +11,18 @@ export default function HomePage() {
         <p className="text-xl text-cloud/70 max-w-2xl mx-auto">
           Premium travel experiences across the subcontinent
         </p>
-        <div className="flex items-center justify-center gap-4 pt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <Link
-            href="/admin/login"
+            href="/admin"
             className="px-6 py-2.5 rounded-lg border border-sand/30 text-sand hover:bg-sand/10 transition text-sm"
           >
-            Admin Login
+            Demo Admin Dashboard
           </Link>
           <Link
-            href="/vendor/login"
+            href="/vendor"
             className="px-6 py-2.5 rounded-lg bg-saffron text-midnight font-semibold hover:bg-saffron/90 transition text-sm"
           >
-            Vendor Login
+            Demo Vendor Dashboard
           </Link>
         </div>
       </div>

@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   Shield, LayoutDashboard, Users, Package, CreditCard, Settings,
@@ -19,45 +17,13 @@ const navItems = [
 ];
 
 const stats = [
-  { label: 'Total Bookings', value: '—', icon: Package, color: 'text-sand' },
-  { label: 'Active Users', value: '—', icon: Users, color: 'text-emerald' },
-  { label: 'Revenue', value: '—', icon: DollarSign, color: 'text-saffron' },
-  { label: 'Page Views', value: '—', icon: Eye, color: 'text-rose' },
+  { label: 'Total Bookings', value: '1,248', icon: Package, color: 'text-sand' },
+  { label: 'Active Users', value: '3,642', icon: Users, color: 'text-emerald' },
+  { label: 'Revenue', value: '₹12.4L', icon: DollarSign, color: 'text-saffron' },
+  { label: 'Page Views', value: '89.2K', icon: Eye, color: 'text-rose' },
 ];
 
 export default function AdminDashboard() {
-  const router = useRouter();
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    const userData = localStorage.getItem('admin_user');
-    if (!token) {
-      router.push('/admin/login');
-      return;
-    }
-    try {
-      setUser(JSON.parse(userData || '{}'));
-    } catch {
-      setUser(null);
-    }
-  }, [router]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('admin_refresh');
-    localStorage.removeItem('admin_user');
-    router.push('/admin/login');
-  };
-
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-midnight">
-        <div className="text-cloud/50">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-midnight flex">
       {/* Sidebar */}
@@ -87,24 +53,29 @@ export default function AdminDashboard() {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-white/10">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-rose/70 hover:text-rose hover:bg-rose/5 transition text-sm"
+        <div className="p-3 border-t border-white/10 space-y-1">
+          <Link
+            href="/"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-cloud/60 hover:text-cloud hover:bg-white/5 transition text-sm"
           >
             <LogOut className="w-4 h-4" />
-            Sign Out
-          </button>
+            Back to Home
+          </Link>
         </div>
       </aside>
 
       {/* Main Content */}
       <div className="flex-1">
-        <header className="border-b border-white/10 px-8 py-4">
-          <h1 className="text-xl font-semibold text-cloud">Dashboard</h1>
-          <p className="text-sm text-cloud/50 mt-0.5">
-            Welcome back, {user.name || user.email || 'Admin'}
-          </p>
+        <header className="border-b border-white/10 px-8 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-semibold text-cloud">Dashboard</h1>
+            <p className="text-sm text-cloud/50 mt-0.5">
+              Welcome back, Demo Admin
+            </p>
+          </div>
+          <div className="px-3 py-1 rounded-full bg-sand/10 text-sand text-xs border border-sand/20">
+            Demo Mode
+          </div>
         </header>
 
         <main className="p-8">
@@ -124,10 +95,10 @@ export default function AdminDashboard() {
           {/* Placeholder */}
           <div className="glass p-8 text-center">
             <p className="text-cloud/50">
-              Dashboard content will appear here as modules are built.
+              Admin dashboard content will appear here as modules are built.
             </p>
             <p className="text-cloud/30 text-sm mt-2">
-              Connect your API to see live data.
+              This is a frontend demo — no backend connection required.
             </p>
           </div>
         </main>
