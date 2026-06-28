@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { VendorController } from './vendor.controller';
-import { VendorAdminController } from './vendor-admin.controller';
 import { VendorService } from './vendor.service';
 import { VendorRepository } from './vendor.repository';
 import { UserRepository } from '@modules/users/user.repository';
@@ -19,7 +18,6 @@ const vendorRepository = new VendorRepository();
 const userRepository = new UserRepository();
 const vendorService = new VendorService(vendorRepository, userRepository);
 const vendorController = new VendorController(vendorService);
-const vendorAdminController = new VendorAdminController(vendorService);
 
 const router = Router();
 
